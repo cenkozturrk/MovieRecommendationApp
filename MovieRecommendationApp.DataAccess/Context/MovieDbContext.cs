@@ -12,7 +12,6 @@ namespace MovieRecommendationApp.DataAccess.Context
     {
         public MovieDbContext(DbContextOptions<MovieDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<Movie> Movies { get; set; }
