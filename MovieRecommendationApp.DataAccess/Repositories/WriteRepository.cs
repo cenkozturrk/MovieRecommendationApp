@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MovieRecommendationApp.DataAccess.Context;
 using MovieRecommendationApp.DataAccess.Repositories.Abstract;
 using MovieRecommendationApp.Domain.Common;
+using MovieRecommendationApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,49 +15,40 @@ namespace MovieRecommendationApp.DataAccess.Repositories
     public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity
     {
         readonly private MovieDbContext _context;
-        public WriteRepository(MovieDbContext context)
+        private DbSet<T> _dbSet;
+        public WriteRepository(MovieDbContext context, DbSet<T> dbSet)
         {
             _context = context;
+            _dbSet = _context.Set<T>(); 
         }
 
         public DbSet<T> Table => _context.Set<T>();
 
-        public async Task<bool> AddAsync(T model)
+        public void Add(T entity)
         {
-            EntityEntry<T> entityEntry = await Table.AddAsync(model);
-            return entityEntry.State == EntityState.Added;
+           _dbSet.Add(entity);
         }
 
-        public async Task<bool> AddRangeAsync(List<T> datas)
+        public void AddRange(IEnumerable<T> entities)
         {
-            await Table.AddRangeAsync(datas);
-            return true;
+           _dbSet.AddRange(entities);
+        }
+        public T GetById(int id)
+        {
+            return _dbSet.Find(id);
         }
 
-        public bool Remove(T model)
+        public void Remove(int id)
         {
-            EntityEntry<T> entityEntry = Table.Remove(model);
-            return entityEntry.State == EntityState.Deleted;
-        }
-        public bool RemoveRange(List<T> datas)
-        {
-            Table.RemoveRange(datas);
-            return true;
+            _dbSet.Remove(GetById(id));
         }
 
-        public async Task<bool> RemoveAsync(string id)
+        public void RemoveRange(IEnumerable<T> entities)
         {
-            T model = await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
-            return Remove(model);
-        }
-        public bool Update(T model)
-        {
-            EntityEntry entityEntry = Table.Update(model);
-            return entityEntry.State == EntityState.Modified;
+            _dbSet.RemoveRange(entities);            
         }
         public async Task<int> SaveAsync()
-            => await _context.SaveChangesAsync();
-
+           => await _context.SaveChangesAsync();
 
     }
 }

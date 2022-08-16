@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieRecommendationApp.DataAccess.Context;
 using MovieRecommendationApp.Domain.Common;
+using MovieRecommendationApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,30 +14,24 @@ namespace MovieRecommendationApp.DataAccess.Repositories.Abstract
     public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity
     {
         private readonly MovieDbContext _context;
+        private DbSet<T> _dbSet;
 
-        public ReadRepository(MovieDbContext context)
+        public ReadRepository(MovieDbContext context, DbSet<T> dbSet)
         {
             _context = context;
+            _dbSet = dbSet;
         }
 
-        public DbSet<T> Table => throw new NotImplementedException();
+        public DbSet<T> Table => _context.Set<T>();
 
-        public IQueryable<T> GetAll()
-         => Table;
-        public IQueryable<T> GetWhere(Expression<Func<T, bool>> method)
-        => Table.Where(method);
+        public IEnumerable<T> GetAll()
+        {
+            return _dbSet.ToList();
+        }
 
-        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method)
-     => await Table.FirstOrDefaultAsync(method);
-       
-
-
-
-        //Bu kısım da where T : class yapısını değiştirdik çünkü alt kısım da id'sine gmre sorgualama yapacağım fakat
-        //          her biri için ayrı ıd atama yapmadım. Bunun yerine base alacagı sınıfı 
-        //          BaseEntity göstererek otomatiken ortak bir idyi hepsine tanımlamış oluyoruz.(İşaretleyici pattern)
-        public async Task<T> GetByIdAsync(string id)
-       => await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
-
+        public T GetById(int id)
+        {
+            return _dbSet.Find(id);            
+        }
     }
 }

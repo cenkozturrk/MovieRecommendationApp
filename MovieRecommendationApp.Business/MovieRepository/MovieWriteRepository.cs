@@ -1,4 +1,5 @@
-﻿using MovieRecommendationApp.Business.MovieRepository.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieRecommendationApp.Business.MovieRepository.Abstract;
 using MovieRecommendationApp.DataAccess.Context;
 using MovieRecommendationApp.DataAccess.Repositories;
 using MovieRecommendationApp.Domain.Entities;
@@ -12,7 +13,7 @@ namespace MovieRecommendationApp.Business.MovieRepository
 {
     public class MovieWriteRepository : WriteRepository<Movie>, IMovieWriteRepository
     {
-        public MovieWriteRepository(MovieDbContext context) : base(context)
+        public MovieWriteRepository(MovieDbContext context, DbSet<Movie> dbSet) : base(context, dbSet)
         {
         }
     }
