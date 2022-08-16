@@ -1,5 +1,5 @@
-﻿using MovieRecommendationApp.Business.MovieRepository;
-using MovieRecommendationApp.Business.MovieRepository.Abstract;
+﻿using MovieRecommendationApp.Business.Repositories;
+using MovieRecommendationApp.DataAccess.Repositories.Abstract;
 
 namespace MovieRecommendationApp.Api.Configuration
 {
@@ -12,8 +12,8 @@ namespace MovieRecommendationApp.Api.Configuration
                 options.UseSqlServer(Configurations.ConnectingString);
                 //options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
-            //services.AddScoped<IMovieReadRepository, MovieReadRepository>();
-            //services.AddScoped<IMovieWriteRepository, MovieWriteRepository>();
+            services.AddScoped<IMovieReadRepository, MovieReadRepository>();
+            services.AddScoped<IMovieWriteRepository, MovieWriteRepository>();
         }
     }
 }
