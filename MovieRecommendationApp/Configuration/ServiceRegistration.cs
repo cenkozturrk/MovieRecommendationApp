@@ -11,9 +11,9 @@ namespace MovieRecommendationApp.Api.Configuration
             {
                 options.UseSqlServer(Configurations.ConnectingString);
                 //options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            });
-            services.AddScoped<IMovieReadRepository, MovieReadRepository>();
-            services.AddScoped<IMovieWriteRepository, MovieWriteRepository>();
+            }, ServiceLifetime.Singleton);
+            services.AddSingleton<IMovieReadRepository, MovieReadRepository>();
+            services.AddSingleton<IMovieWriteRepository, MovieWriteRepository>();
         }
     }
 }

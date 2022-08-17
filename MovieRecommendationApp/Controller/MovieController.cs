@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MovieRecommendationApp.Business.MovieRepository.Abstract;
+﻿using Microsoft.AspNetCore.Mvc;
+using MovieRecommendationApp.DataAccess.Repositories.Abstract;
 
 namespace MovieRecommendationApp.Api.Controllers
 {
@@ -8,20 +7,23 @@ namespace MovieRecommendationApp.Api.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-        private IMovieReadRepository _movieRead;
-        private IMovieWriteRepository _movieWrite;
+        private IMovieReadRepository _movieReadRepository;
+        private IMovieWriteRepository _movieWriteRepository;
         
-        public MovieController(IMovieReadRepository movieRead, IMovieWriteRepository movieWrite)
+        public MovieController(IMovieReadRepository movieReadRepository, IMovieWriteRepository movieWriteRepository)
         {
-            _movieRead = movieRead;
-            _movieWrite = movieWrite;
+            _movieReadRepository = movieReadRepository;
+            _movieWriteRepository = movieWriteRepository;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async void Get()
         {
-            var movie = _movieRead.GetAll();
-            return Ok(movie);
+            await _movieWriteRepository.AddRangeAsync(new()
+            {
+                new() { Id = Guid.NewGuid(), Name = " Movie "}
+            });
+           await _movieWriteRepository.SaveAsync();
         }
        
     }

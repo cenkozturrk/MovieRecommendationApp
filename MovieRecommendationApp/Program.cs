@@ -1,7 +1,5 @@
 global using MovieRecommendationApp.DataAccess.Context;
 global using Microsoft.EntityFrameworkCore;
-using MovieRecommendationApp.Business.MovieRepository.Abstract;
-using MovieRecommendationApp.Business.MovieRepository;
 using MovieRecommendationApp.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
