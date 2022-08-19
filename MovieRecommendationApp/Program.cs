@@ -4,12 +4,14 @@ using MovieRecommendationApp.Api.Configuration;
 using FluentValidation.AspNetCore;
 using MovieRecommendationApp.Business.Validators;
 using MovieRecommendationApp.Business.Filters;
+using MovieRecommendationApp.Business;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddServices();
+//builder.Services.AddBusinessServices();
 
 builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
     .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<MovieValidator>())
