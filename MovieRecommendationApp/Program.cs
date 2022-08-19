@@ -1,6 +1,9 @@
 global using MovieRecommendationApp.DataAccess.Context;
 global using Microsoft.EntityFrameworkCore;
 using MovieRecommendationApp.Api.Configuration;
+using FluentValidation.AspNetCore;
+using MovieRecommendationApp.Business.Validators;
+using MovieRecommendationApp.Business.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddServices();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
+    .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<MovieValidator>())
+    //Bundan sonra mevzut olanýn dýþýnda benim kendi yazacaðým filterleri devreye sok.(Mevcut olan doðrulama filtrelerini devre dýþý býrak.)
+    .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

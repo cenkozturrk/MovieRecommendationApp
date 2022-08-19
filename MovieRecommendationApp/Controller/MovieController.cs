@@ -16,20 +16,11 @@ namespace MovieRecommendationApp.Api.Controllers
             _movieReadRepository = movieReadRepository;
             _movieWriteRepository = movieWriteRepository;
         }
-
-        [HttpGet]
+ 
+        [HttpGet] 
         public async Task Get()
-        {
-            // await _movieWriteRepository.AddRangeAsync(new()
-            // {
-            //     new() { Id = Guid.NewGuid(), Name = " Movie "}
-            // });
-            //await _movieWriteRepository.SaveAsync();
-           Movie movie =  await _movieReadRepository.GetByIdAsync("");
-            movie.Name = "Ceku";
-            //Addscoped sayesinde Write Repositoryi de kullanabiliyoruz.
-            await _movieWriteRepository.SaveAsync();
-
+        {        
+            await _movieWriteRepository.AddAsync(new() { Name = "C" });
         }
 
 

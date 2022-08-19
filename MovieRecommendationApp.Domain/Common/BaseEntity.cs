@@ -11,9 +11,9 @@ namespace MovieRecommendationApp.Domain.Common
     {
         [Key]
         public Guid Id { get; set; }
-        public DateTime? CreatedDate { get; set; }
-        public DateTime? UpdateDate { get; set; }
-        public DateTime? DeleteDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
+        public DateTime DeletedDate { get; set; }
 
 
         //Kaydı gerçekte silmeyeceğiz. Sadece aktif durumdan pasif duruma çekeceğiz.(Soft Delete)

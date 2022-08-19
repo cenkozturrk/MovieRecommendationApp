@@ -12,7 +12,7 @@
     "MovieRecommendationApp": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": true,//false edersem swaggerı calıstırmaya gerek kalmaz.
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7135;http://localhost:5135",
       "environmentVariables": {
