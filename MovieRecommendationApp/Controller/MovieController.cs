@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MovieRecommendationApp.Business.MediatR.Commands.Movie.CreateMovie;
+using MovieRecommendationApp.Business.MediatR.Commands.Movie.UpdateMovie;
 using MovieRecommendationApp.Business.MediatR.Queries.Movie.GetAllMovie;
 using MovieRecommendationApp.Business.MediatR.Queries.Movie.GetByIdMovie;
 using System.Net;
@@ -38,6 +39,12 @@ namespace MovieRecommendationApp.Api.Controllers
         {
              CreateMovieCommandResponse response = await _mediator.Send(createMovieCommandRequest);
             return StatusCode((int)HttpStatusCode.Created);
+        }
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UpdateMovieCommandRequest updateMovieCommandRequest)
+        {
+            UpdateMovieCommandResponse response = await _mediator.Send(updateMovieCommandRequest);
+            return Ok();
         }
     }
 }

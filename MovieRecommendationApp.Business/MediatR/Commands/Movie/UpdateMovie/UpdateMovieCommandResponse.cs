@@ -8,5 +8,6 @@ namespace MovieRecommendationApp.Business.MediatR.Commands.Movie.UpdateMovie
 {
     public class UpdateMovieCommandResponse
     {
+
     }
 }
