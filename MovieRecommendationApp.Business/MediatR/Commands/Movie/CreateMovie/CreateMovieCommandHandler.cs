@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieRecommendationApp.Business.MediatR.Commands
+namespace MovieRecommendationApp.Business.MediatR.Commands.Movie.CreateMovie
 {
     public class CreateMovieCommandHandler : IRequestHandler<CreateMovieCommandRequest, CreateMovieCommandResponse>
     {

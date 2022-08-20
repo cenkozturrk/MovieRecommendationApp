@@ -1,4 +1,4 @@
-﻿namespace MovieRecommendationApp.Business.MediatR.Queries.GetAllMovie
+﻿namespace MovieRecommendationApp.Business.MediatR.Queries.Movie.GetAllMovie
 {
     public class GetAllMovieQueryResponse
     {

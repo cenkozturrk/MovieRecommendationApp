@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MovieRecommendationApp.Business.MediatR.Commands;
-using MovieRecommendationApp.Business.MediatR.Queries.GetAllMovie;
-using MovieRecommendationApp.DataAccess.Repositories.Abstract;
-using MovieRecommendationApp.Domain.Entities;
+using MovieRecommendationApp.Business.MediatR.Commands.Movie.CreateMovie;
+using MovieRecommendationApp.Business.MediatR.Queries.Movie.GetAllMovie;
+using MovieRecommendationApp.Business.MediatR.Queries.Movie.GetByIdMovie;
 using System.Net;
 
 namespace MovieRecommendationApp.Api.Controllers
@@ -27,12 +26,12 @@ namespace MovieRecommendationApp.Api.Controllers
         }
 
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Get(string id)
-        //{
-        //    Movie movie = await _movieReadRepository.GetByIdAsync(id);
-        //    return Ok(movie);
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] GetByIdMovieQueryRequest getByIdMovieQueryRequest)
+        {
+            GetByIdMovieQueryResponse response = await _mediator.Send(getByIdMovieQueryRequest);
+            return Ok(response);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Post(CreateMovieCommandRequest createMovieCommandRequest)

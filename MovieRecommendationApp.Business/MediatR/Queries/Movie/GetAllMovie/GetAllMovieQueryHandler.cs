@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieRecommendationApp.Business.MediatR.Queries.GetAllMovie
+namespace MovieRecommendationApp.Business.MediatR.Queries.Movie.GetAllMovie
 {
     public class GetAllMovieQueryHandler : IRequestHandler<GetAllMovieQueryRequest, GetAllMovieQueryResponse>
     {
