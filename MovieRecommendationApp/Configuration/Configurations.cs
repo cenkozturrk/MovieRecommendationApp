@@ -1,4 +1,4 @@
-﻿namespace MovieRecommendationApp.Api
+﻿namespace MovieRecommendationApp.Api.Configuration
 {
     static class Configurations
     {

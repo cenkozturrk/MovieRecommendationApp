@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MovieRecommendationApp.Domain.Common;
 using MovieRecommendationApp.Domain.Entities;
+using MovieRecommendationApp.Domain.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MovieRecommendationApp.DataAccess.Context
 {
-    public class MovieDbContext : DbContext
+    public class MovieDbContext : IdentityDbContext<AppUser , AppRole, string>
     {
         public MovieDbContext(DbContextOptions<MovieDbContext> options) : base(options)
         {
