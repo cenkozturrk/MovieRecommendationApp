@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using MovieRecommendationApp.Business.MediatR.Commands;
+using MovieRecommendationApp.Business.MediatR.Queries.GetAllMovie;
 using MovieRecommendationApp.DataAccess.Repositories.Abstract;
 using MovieRecommendationApp.Domain.Entities;
+using System.Net;
 
 namespace MovieRecommendationApp.Api.Controllers
 {
@@ -8,29 +12,33 @@ namespace MovieRecommendationApp.Api.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-        private IMovieReadRepository _movieReadRepository;
-        private IMovieWriteRepository _movieWriteRepository;
-        
-        public MovieController(IMovieReadRepository movieReadRepository, IMovieWriteRepository movieWriteRepository)
-        {
-            _movieReadRepository = movieReadRepository;
-            _movieWriteRepository = movieWriteRepository;
+        readonly IMediator _mediator;
+
+        public MovieController(IMediator mediator)
+        {            
+            _mediator = mediator;
         }
- 
+
         [HttpGet] 
-        public async Task Get()
+        public async Task<IActionResult> Get([FromQuery] GetAllMovieQueryRequest getAllMovieQueryRequest)
         {        
-            await _movieWriteRepository.AddAsync(new() { Name = "C" });
+          GetAllMovieQueryResponse response = await _mediator.Send(getAllMovieQueryRequest);
+            return Ok(response);
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Get(string id)
+        //{
+        //    Movie movie = await _movieReadRepository.GetByIdAsync(id);
+        //    return Ok(movie);
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateMovieCommandRequest createMovieCommandRequest)
         {
-            Movie movie = await _movieReadRepository.GetByIdAsync(id);
-            return Ok(movie);
+             CreateMovieCommandResponse response = await _mediator.Send(createMovieCommandRequest);
+            return StatusCode((int)HttpStatusCode.Created);
         }
-
-        
     }
 }
