@@ -9,5 +9,6 @@ namespace MovieRecommendationApp.Business.MediatR.Commands.Movie.RemoveMovie
 {
     public class RemoveMovieCommandRequest : IRequest<RemoveMovieCommandResponse>
     {
+        public string Id { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MovieRecommendationApp.Business.MediatR.Commands.Movie.CreateMovie;
+using MovieRecommendationApp.Business.MediatR.Commands.Movie.RemoveMovie;
 using MovieRecommendationApp.Business.MediatR.Commands.Movie.UpdateMovie;
 using MovieRecommendationApp.Business.MediatR.Queries.Movie.GetAllMovie;
 using MovieRecommendationApp.Business.MediatR.Queries.Movie.GetByIdMovie;
@@ -27,7 +28,7 @@ namespace MovieRecommendationApp.Api.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{Id}")]
         public async Task<IActionResult> Get([FromRoute] GetByIdMovieQueryRequest getByIdMovieQueryRequest)
         {
             GetByIdMovieQueryResponse response = await _mediator.Send(getByIdMovieQueryRequest);
@@ -44,6 +45,12 @@ namespace MovieRecommendationApp.Api.Controllers
         public async Task<IActionResult> Put([FromBody] UpdateMovieCommandRequest updateMovieCommandRequest)
         {
             UpdateMovieCommandResponse response = await _mediator.Send(updateMovieCommandRequest);
+            return Ok();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromRoute] RemoveMovieCommandRequest removeMovieCommandRequest)
+        {
+            RemoveMovieCommandResponse response = await _mediator.Send(removeMovieCommandRequest);
             return Ok();
         }
     }
