@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieRecommendationApp.Business.MediatR.Commands.AppUser.CreateUser;
+using MovieRecommendationApp.Business.MediatR.Commands.AppUser.LoginUser;
 
 namespace MovieRecommendationApp.Api.Controller
 {
@@ -23,6 +24,13 @@ namespace MovieRecommendationApp.Api.Controller
             return Ok(response);
         }
 
+        // Eger bir gün ön taraf ile bağlarsam action routingi ile bu controllerı kullanabilirim. İlgili endpoint ismi genellikle action!!
+        [HttpPost]  
+        public async Task<IActionResult> Login(LoginUserCommandRequest loginUserCommandRequest)
+        {
+            LoginUserCommandResponse response = await _mediator.Send(loginUserCommandRequest);
+            return Ok(response);
+        }
 
 
 

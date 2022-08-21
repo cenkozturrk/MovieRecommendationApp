@@ -8,7 +8,7 @@ namespace MovieRecommendationApp.Business.Exceptions
 {
     public class UserCreateFailedException : Exception
     {
-        //duruma göre hangisini istersim.
+        //duruma göre hangisini istersem.
         public UserCreateFailedException() : base(" Failed to register..!")
         {
         }
@@ -16,7 +16,7 @@ namespace MovieRecommendationApp.Business.Exceptions
         public UserCreateFailedException(string? message) : base(message)
         {
         }
-
+        
         public UserCreateFailedException(string? message, Exception? innerException) : base(message, innerException)
         {
         }
