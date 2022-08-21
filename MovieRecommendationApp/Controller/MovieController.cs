@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieRecommendationApp.Business.MediatR.Commands.Movie.CreateMovie;
 using MovieRecommendationApp.Business.MediatR.Commands.Movie.RemoveMovie;
@@ -11,6 +12,7 @@ namespace MovieRecommendationApp.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Admin")]
     public class MovieController : ControllerBase
     {
         readonly IMediator _mediator;

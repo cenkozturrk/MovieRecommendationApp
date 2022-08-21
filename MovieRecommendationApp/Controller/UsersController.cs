@@ -8,6 +8,7 @@ namespace MovieRecommendationApp.Api.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class UsersController : ControllerBase
     {
         readonly IMediator _mediator;
