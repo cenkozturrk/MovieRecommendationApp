@@ -1,4 +1,4 @@
-# MovieRecommendationApplication
+# Movie Recommendation Application
 The technologies I use on the application are as follows =>
 
  -Generic Repository
