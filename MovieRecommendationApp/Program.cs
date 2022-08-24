@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.IdentityModel.Tokens;
 using MovieRecommendationApp.Api.Configuration;
+using MovieRecommendationApp.Api.Extensions;
 using MovieRecommendationApp.Business;
 using MovieRecommendationApp.Business.Filters;
 using MovieRecommendationApp.Business.Validators;
@@ -33,6 +34,8 @@ builder.Services.AddSwaggerGen();
 Logger log = new LoggerConfiguration() // Instance olusturdum.
     .WriteTo.Console()
     .WriteTo.File("logs/log.txt")
+    //.WriteTo.Seq(builder.Configuration["Seq:ServerURL"])  Görselleþtirmek amaçlý kullandým fakat file basmak yeterli.
+
  //.WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("Mssql"), "logs", 
     //    needAutoCreateTable: true,
     //    columnOptions: new Dictionary<string, ColumnWriterBase>
@@ -94,6 +97,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExpentionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>()); 
 
 app.UseSerilogRequestLogging();  // kendisinden once ki middleware larý loglatmaz. Sonrakileri okur.
 
