@@ -17,6 +17,6 @@ namespace MovieRecommendationApp.Domain.Common
 
 
         //Kaydı gerçekte silmeyeceğiz. Sadece aktif durumdan pasif duruma çekeceğiz.(Soft Delete)
-        public bool IcActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }
